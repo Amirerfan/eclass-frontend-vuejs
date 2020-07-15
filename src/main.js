@@ -10,6 +10,8 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
+import "./assets/scss/eclass.scss";
+
 Vue.config.productionTip = false;
 
 new Vue({
