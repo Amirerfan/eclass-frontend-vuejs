@@ -2,8 +2,8 @@
   <div class="auth">
     <img src="../assets/img/logo/logo_name.png" alt />
     <section class="auth__form">
-      <Login />
-      <Register />
+      <Login v-if="login" />
+      <Register v-if="!login" />
     </section>
   </div>
 </template>
@@ -17,6 +17,11 @@ export default {
   components: {
     Login,
     Register
+  },
+  data() {
+    return {
+      login: true
+    };
   }
 };
 </script>

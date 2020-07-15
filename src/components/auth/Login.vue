@@ -18,7 +18,7 @@
           placeholder="Password"
           type="password"
           size="lg"
-          v-model="form.name"
+          v-model="form.password"
           required
         ></b-form-input>
       </b-form-group>
@@ -29,12 +29,12 @@
         v-model="form.rememberMe"
       >Remember Me!</b-form-checkbox>
 
-      <b-button class="login__form__login-button" type="submit" variant="primary">Login</b-button>
+      <b-button class="login__form__login-button" type="submit" variant="primary">LOGIN</b-button>
       <b-button
         class="login__form__register-button"
         @click="onRegister"
         variant="outline-primary"
-      >Register</b-button>
+      >REGISTER</b-button>
     </b-form>
   </div>
 </template>
@@ -46,7 +46,7 @@ export default {
     return {
       form: {
         email: "",
-        name: "",
+        password: "",
         rememberMe: false
       },
       show: true
