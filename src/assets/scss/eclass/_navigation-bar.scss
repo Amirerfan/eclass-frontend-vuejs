@@ -2,6 +2,12 @@
   border-bottom: 1px solid #d1d1d1;
   box-shadow: 0 1px 10px #d1d1d1;
 
+  position: sticky !important;
+  top: 0;
+  background-color: #fff;
+
+  z-index: 1;
+
   &__right {
     &__buttons {
       margin-right: 4rem;

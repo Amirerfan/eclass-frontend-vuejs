@@ -1,0 +1,25 @@
+.rooms-list {
+  display: flex;
+  flex-direction: column;
+
+  width: 320px;
+  height: 100%;
+
+  padding: 0 10px;
+
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar-track {
+    background-color: #00b63d;
+  }
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: #f5f5f5;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #e2e2e2;
+  }
+}

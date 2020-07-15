@@ -1,18 +1,24 @@
 <template>
   <div class="home">
-    <RoomCard />
-    <RoomCard />
-    <RoomCard />
-    <RoomCard />
+    <NavigationBar v-if="!fullScreen" />
+    <RoomsList />
   </div>
 </template>
 
 <script>
-import RoomCard from "@/components/RoomCard.vue";
+import RoomsList from "@/components/RoomsList.vue";
+import NavigationBar from "@/components/NavigationBar";
+
 export default {
   name: "Home",
   components: {
-    RoomCard
+    RoomsList,
+    NavigationBar
+  },
+  computed: {
+    fullScreen() {
+      return this.$route.path == "/login" || this.$route.path == "/register";
+    }
   }
 };
 </script>
