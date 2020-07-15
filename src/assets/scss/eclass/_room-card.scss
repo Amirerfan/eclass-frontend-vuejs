@@ -1,0 +1,55 @@
+.room-card {
+  width: 300px;
+  height: 115px;
+  display: flex;
+  padding: 10px;
+
+  border: 1px solid rgba(0, 0, 0, 0.125);
+
+  &__img {
+    height: 100%;
+    width: 60px;
+
+    & > img {
+      width: 60px;
+      height: 60px;
+    }
+  }
+
+  &__info {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+
+    width: 100%;
+    padding: 0 10px;
+
+    &__name {
+      font-weight: 500;
+      color: #000;
+      margin-bottom: 2px;
+    }
+
+    &__msg {
+      font-size: 0.9rem;
+      color: rgb(145, 145, 145);
+      min-height: 3rem;
+    }
+
+    &__time {
+      align-self: flex-end;
+      color: rgb(145, 145, 145);
+      font-size: 0.9rem;
+    }
+
+    &__number {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+
+      padding: 5px;
+      min-width: 20px;
+      font-size: 0.8rem;
+    }
+  }
+}
