@@ -1,6 +1,27 @@
 .room-page-header {
+  display: flex;
+  flex-direction: row;
+
+  align-items: center;
+
   width: 100%;
   height: 100%;
 
-  background-color: rgb(2, 133, 41);
+  padding: 0 1rem;
+
+  background-color: #00b63d3a;
+
+  &__room-name {
+    font-weight: 500;
+  }
+
+  &__video-call {
+    margin-left: auto;
+
+    & > svg {
+      color: #00b63d;
+      height: 30px;
+      width: 30px;
+    }
+  }
 }
