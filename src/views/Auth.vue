@@ -1,6 +1,6 @@
 <template>
   <div class="auth">
-    <div class="auth__background"></div>
+    <img src="../assets/img/logo/logo_name.png" alt />
     <section class="auth__form">
       <Login />
       <Register />
