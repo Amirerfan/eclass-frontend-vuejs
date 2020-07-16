@@ -9,7 +9,8 @@
 
   padding: 0 1rem;
 
-  background-color: #00b63d3a;
+  background-color: rgba(21, 175, 42, 0.041);
+  border-bottom: 1px solid rgba(0, 184, 61, 0.5);
 
   &__room-name {
     font-weight: 500;
@@ -19,7 +20,7 @@
     margin-left: auto;
 
     & > svg {
-      color: #00b63d;
+      color: #2e2e2e;
       height: 30px;
       width: 30px;
     }
