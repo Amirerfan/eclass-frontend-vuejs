@@ -11,7 +11,8 @@
   }
   &__chat-container {
     width: 100%;
-    height: 100%;
+    max-height: calc(100vh - 67px - 50px - 61px);
+    min-height: calc(100vh - 67px - 50px - 85px);
   }
   &__compose-container {
     width: 100%;
