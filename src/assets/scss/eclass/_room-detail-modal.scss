@@ -1,0 +1,70 @@
+.room-detail-modal {
+  & .modal-body {
+  }
+
+  &__room-name {
+    margin: 10px 0;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000;
+  }
+
+  &__room-link {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+
+    background-color: #067a1f67;
+    border-radius: 5px;
+    border: 1px solid #067a1f40;
+
+    &__title {
+      font-weight: 500;
+      margin: 0;
+      padding: 10px 5px;
+      background-color: #067a1fcb;
+      color: rgb(223, 223, 223);
+    }
+
+    &__link {
+      padding: 10px 5px;
+      margin: 0;
+      color: #000;
+    }
+  }
+
+  & section {
+    padding: 10px 5px;
+    margin: 10px 0;
+
+    & .section-header {
+      display: flex;
+
+      padding: 5px 0;
+
+      font-size: 0.8rem;
+
+      border-bottom: 1px solid #067a1f;
+
+      &__title {
+        margin: 0;
+      }
+
+      &__button {
+        background-color: #067a1f;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        color: #fff;
+        border-radius: 5px;
+        margin-left: 5px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
