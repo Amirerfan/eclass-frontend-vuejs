@@ -55,9 +55,40 @@
       </section>
     </b-modal>
 
-    <b-modal id="create-exam-modal" size="lg" title="Setup New Exam" ok-only no-stacking>
-      <p class="my-2">Label</p>
-      <b-button v-b-modal.modal-multi-3 size="sm">Set Exam</b-button>
+    <b-modal
+      id="create-exam-modal"
+      modal-class="create-exam-modal"
+      size="lg"
+      ok-only
+      no-stacking
+      hide-header
+      hide-footer
+    >
+      <p class="create-exam-modal__title">Setup New Exam</p>
+
+      <div class="create-exam-modal__exam-title">
+        <label for="example-datepicker">Exam Title</label>
+        <b-form-input id="input-horizontal"></b-form-input>
+      </div>
+      <div class="create-exam-modal__start-time">
+        <label for="example-datepicker">Start Time</label>
+        <b-form-datepicker id="example-datepicker" class="mb-2"></b-form-datepicker>
+        <b-form-timepicker locale="en"></b-form-timepicker>
+      </div>
+      <div class="create-exam-modal__end-time">
+        <label for="example-datepicker">End Time</label>
+        <b-form-datepicker class="mb-2" id="example-datepicker"></b-form-datepicker>
+        <b-form-timepicker class="create-exam-modal__end-time_input" locale="en"></b-form-timepicker>
+      </div>
+
+      <section class="create-exam-modal__questions">
+        <div class="create-exam-modal__questions__header">QUESTIONS</div>
+        <div class="create-exam-modal__questions__body">
+          <QuestionCard />
+          <QuestionCard />
+          <QuestionCard />
+        </div>
+      </section>
     </b-modal>
 
     <b-modal id="modal-multi-3" size="sm" title="Third Modal" ok-only>

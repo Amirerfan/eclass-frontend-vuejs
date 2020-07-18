@@ -1,0 +1,30 @@
+.create-exam-modal {
+  &__title {
+    margin: 1rem 0;
+    padding-bottom: 1rem;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000;
+  }
+
+  &__exam-title {
+    display: flex;
+
+    & label {
+      flex: 1;
+    }
+
+    & input {
+      flex: 2;
+    }
+  }
+
+  &__start-time,
+  &__end-time {
+    display: flex;
+    flex-direction: column;
+
+    margin: 1rem 0;
+  }
+}
