@@ -67,7 +67,12 @@
 </template>
 
 <script>
+import ExamCard from "@/components/Exam/ExamCard.vue";
+
 export default {
-  name: "RoomPageHeader"
+  name: "RoomPageHeader",
+  components: {
+    ExamCard
+  }
 };
 </script>
