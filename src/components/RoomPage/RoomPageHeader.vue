@@ -68,11 +68,13 @@
 
 <script>
 import ExamCard from "@/components/Exam/ExamCard.vue";
+import PersonCard from "@/components/PersonCard.vue";
 
 export default {
   name: "RoomPageHeader",
   components: {
-    ExamCard
+    ExamCard,
+    PersonCard
   }
 };
 </script>
