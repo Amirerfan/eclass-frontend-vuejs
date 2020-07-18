@@ -1,0 +1,9 @@
+.question-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__delete-question {
+    margin: 0.2rem 0 0.2rem auto;
+  }
+}

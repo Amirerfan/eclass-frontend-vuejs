@@ -65,21 +65,22 @@
       hide-footer
     >
       <p class="create-exam-modal__title">Setup New Exam</p>
-
-      <div class="create-exam-modal__exam-title">
-        <label for="example-datepicker">Exam Title</label>
-        <b-form-input id="input-horizontal"></b-form-input>
-      </div>
-      <div class="create-exam-modal__start-time">
-        <label for="example-datepicker">Start Time</label>
-        <b-form-datepicker id="example-datepicker" class="mb-2"></b-form-datepicker>
-        <b-form-timepicker locale="en"></b-form-timepicker>
-      </div>
-      <div class="create-exam-modal__end-time">
-        <label for="example-datepicker">End Time</label>
-        <b-form-datepicker class="mb-2" id="example-datepicker"></b-form-datepicker>
-        <b-form-timepicker class="create-exam-modal__end-time_input" locale="en"></b-form-timepicker>
-      </div>
+      <section>
+        <div class="create-exam-modal__exam-title">
+          <label for="example-datepicker">Exam Title</label>
+          <b-form-input id="input-horizontal"></b-form-input>
+        </div>
+        <div class="create-exam-modal__start-time">
+          <label for="example-datepicker">Start Time</label>
+          <b-form-datepicker id="example-datepicker" class="mb-2"></b-form-datepicker>
+          <b-form-timepicker locale="en"></b-form-timepicker>
+        </div>
+        <div class="create-exam-modal__end-time">
+          <label for="example-datepicker">End Time</label>
+          <b-form-datepicker class="mb-2" id="example-datepicker"></b-form-datepicker>
+          <b-form-timepicker class="create-exam-modal__end-time_input" locale="en"></b-form-timepicker>
+        </div>
+      </section>
 
       <section class="create-exam-modal__questions">
         <div class="create-exam-modal__questions__header">QUESTIONS</div>
@@ -88,7 +89,11 @@
           <QuestionCard />
           <QuestionCard />
         </div>
+        <b-button class="create-exam-modal__questions__add-question" variant="primary">Add Question</b-button>
       </section>
+      <div class="create-exam-modal__submit-exam">
+        <b-button class="create-exam-modal__submit-exam__button" variant="success">Submit Exam</b-button>
+      </div>
     </b-modal>
 
     <b-modal id="modal-multi-3" size="sm" title="Third Modal" ok-only>
@@ -98,14 +103,16 @@
 </template>
 
 <script>
+import QuestionCard from "@/components/Exam/QuestionCard.vue";
 import ExamCard from "@/components/Exam/ExamCard.vue";
 import PersonCard from "@/components/PersonCard.vue";
 
 export default {
   name: "RoomPageHeader",
   components: {
-    ExamCard,
-    PersonCard
+    QuestionCard,
+    PersonCard,
+    ExamCard
   }
 };
 </script>
