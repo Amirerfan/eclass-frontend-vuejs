@@ -18,11 +18,11 @@
 
     background-color: #067a1f67;
     border-radius: 5px;
-    border: 1px solid #067a1f40;
 
     &__title {
       font-weight: 500;
       margin: 0;
+      border-radius: 5px 0 0 5px;
       padding: 10px 5px;
       background-color: #067a1fcb;
       color: rgb(223, 223, 223);
