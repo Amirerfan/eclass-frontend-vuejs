@@ -6,6 +6,18 @@
 
 <script>
 export default {
-  name: "App"
+  name: "App",
+  computed: {
+    user() {
+      return this.$store.state.user.token;
+    }
+  },
+  watch: {
+    user: function(newValue) {
+      if (newValue){
+        this.$router.push('/')
+      }
+    }
+  }
 };
 </script>

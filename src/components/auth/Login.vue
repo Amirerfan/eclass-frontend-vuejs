@@ -55,7 +55,7 @@ export default {
   methods: {
     onLogin(evt) {
       evt.preventDefault();
-      console.log(JSON.stringify(this.form));
+      this.$store.dispatch('login', {email: "amirerfan", password: "asdfasdf"})
     },
     onRegister(evt) {
       evt.preventDefault();

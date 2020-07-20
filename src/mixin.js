@@ -5,21 +5,21 @@ import axios from 'axios'
 const mixin = {
   data() {
     return {
-      URL: "https://127.0.0.1/",
+      URL: "http://127.0.0.1:8000/",
     }
   },
   methods: {
 
     baseRequest(config) {
       const instance = axios.create({
-        baseURL: "https://127.0.0.1/"
+        baseURL: "http://127.0.0.1:8000/"
       });
       return instance.request(config);
     },
 
     request(config) {
       const instance = axios.create({
-        baseURL: "https://127.0.0.1/",
+        baseURL: "http://127.0.0.1:8000/",
         headers: {
           authorization: "Token " + this.token,
           "Content-Type": "application/json"
