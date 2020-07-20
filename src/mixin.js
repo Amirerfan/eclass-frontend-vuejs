@@ -1,0 +1,64 @@
+
+import store from './store/index'
+import axios from 'axios'
+
+const mixin = {
+  data() {
+    return {
+      URL: "https://127.0.0.1/",
+    }
+  },
+  methods: {
+
+    baseRequest(config) {
+      const instance = axios.create({
+        baseURL: "https://127.0.0.1/"
+      });
+      return instance.request(config);
+    },
+
+    request(config) {
+      const instance = axios.create({
+        baseURL: "https://127.0.0.1/",
+        headers: {
+          authorization: "Token " + this.token,
+          "Content-Type": "application/json"
+        }
+      })
+      instance.interceptors.response.use((response) => {
+        // do something with the response data\
+        // this.loading = false
+
+        return response;
+      }, error => {
+        // this.loading = false
+        // handle the response error
+        if (error.response) {
+          if (error.response.data && error.response.status !== 404 && error.response.status !== 500) {
+            let errors = Object.values(error.response.data)
+            // errors.forEach(msg => { M.toast({ html: msg, classes: 'red' }) });
+          }
+          if (error.response.status == 503) { M.toast({ html: 'خطا در ارتباط با سرور', classes: 'red' }) }
+          // if (error.response.status == 403) store.dispatch("GetUserData");
+          if (error.response.status == 401) this.$router.push('/login')
+        }
+        return Promise.reject(error);
+      });
+      return instance.request(config);
+    },
+
+    checkAuth() {
+    },
+
+    deleteDropFile(index) {
+      this.dropFiles.splice(index, 1)
+    },
+  },
+  computed: {
+    token() {
+      return store.state.token
+    },
+  }
+}
+
+export default mixin
