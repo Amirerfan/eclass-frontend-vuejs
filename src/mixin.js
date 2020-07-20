@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import store from './store/index'
 import axios from 'axios'
 
@@ -35,10 +35,10 @@ const mixin = {
         // handle the response error
         if (error.response) {
           if (error.response.data && error.response.status !== 404 && error.response.status !== 500) {
-            let errors = Object.values(error.response.data)
+            // let errors = Object.values(error.response.data)
             // errors.forEach(msg => { M.toast({ html: msg, classes: 'red' }) });
           }
-          if (error.response.status == 503) { M.toast({ html: 'خطا در ارتباط با سرور', classes: 'red' }) }
+          // if (error.response.status == 503) { M.toast({ html: 'خطا در ارتباط با سرور', classes: 'red' }) }
           // if (error.response.status == 403) store.dispatch("GetUserData");
           if (error.response.status == 401) this.$router.push('/login')
         }
