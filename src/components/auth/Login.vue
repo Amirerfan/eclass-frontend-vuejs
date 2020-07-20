@@ -1,23 +1,23 @@
 <template>
   <div class="login">
-    <b-form class="login__form" @submit="onLogin" v-if="show">
-      <b-form-group id="input-group-1" label="Email Address" label-for="input-1">
+    <b-form class="login__form" @submit="onLogin">
+      <b-form-group label="Email Address" label-for="email">
         <b-form-input
+          id="email"
           class="login__form__email"
           placeholder="Email"
           type="email"
-          size="lg"
-          v-model="form.email"
+          v-model="form.username"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-1" label="Password" label-for="input-1">
+      <b-form-group label="Password" label-for="password">
         <b-form-input
+          id="password"
           class="login__form__password"
           placeholder="Password"
           type="password"
-          size="lg"
           v-model="form.password"
           required
         ></b-form-input>
@@ -29,12 +29,12 @@
         v-model="form.rememberMe"
       >Remember Me!</b-form-checkbox>
 
-      <b-button class="login__form__login-button" type="submit" variant="primary">LOGIN</b-button>
+      <b-button class="login__form__login-button" type="submit" variant="primary">Login</b-button>
       <b-button
         class="login__form__register-button"
-        @click="onRegister"
+        @click="changeToRegister"
         variant="outline-primary"
-      >REGISTER</b-button>
+      >Register</b-button>
     </b-form>
   </div>
 </template>
@@ -45,22 +45,22 @@ export default {
   data() {
     return {
       form: {
-        email: "",
+        username: "",
         password: "",
         rememberMe: false
-      },
-      show: true
+      }
     };
   },
-  methods: {
-    onLogin(evt) {
-      evt.preventDefault();
-      this.$store.dispatch('login', {email: "amirerfan", password: "asdfasdf"})
-    },
-    onRegister(evt) {
-      evt.preventDefault();
-      console.log(evt + "register");
+  props: {
+    changeToRegister: {
+      type: Function,
     }
+  },
+  methods: {
+    onLogin(event) {
+      event.preventDefault();
+      this.$store.dispatch('login', this.form)
+    },
   }
 };
 </script>

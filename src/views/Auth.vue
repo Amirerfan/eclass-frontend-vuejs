@@ -2,8 +2,8 @@
   <div class="auth">
     <img src="../assets/img/logo/logo_name.png" alt />
     <section class="auth__form">
-      <Login v-if="login" />
-      <Register v-if="!login" />
+      <Login v-if="state == 'login'" :changeToRegister="changeToRegister"/>
+      <Register v-if="state == 'register'" :changeToLogin="changeToLogin" />
     </section>
   </div>
 </template>
@@ -20,8 +20,16 @@ export default {
   },
   data() {
     return {
-      login: true
+      state: 'login'
     };
+  },
+  methods: {
+    changeToRegister() {
+      this.state = 'register'
+    },
+    changeToLogin() {
+      this.state = 'login'
+    }
   }
 };
 </script>

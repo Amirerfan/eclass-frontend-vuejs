@@ -24,10 +24,7 @@ export default new Vuex.Store({
 			mixin.methods.baseRequest({	// login user api call
 				url: 'login/',
 				method: 'POST',
-				data: {
-					username: payload.email,
-					password: payload.password
-				}
+				data: payload
 			}).then(res => {
         console.log(res)
 				context.commit('setToken', res.data) // create related cafe classes				
@@ -42,7 +39,27 @@ export default new Vuex.Store({
 					}
 				}
 			})
-		},
+    },
+    register(context, payload) {
+      mixin.methods.baseRequest({	// login user api call
+				url: 'register/',
+				method: 'POST',
+				data: payload
+			}).then(res => {
+        console.log(res)
+				context.commit('setToken', res.data) // create related cafe classes				
+        localStorage.setItem('token', res.data.token) // save token into localstorage
+        // context.dispatch('getUserData')
+			}).catch(err => {
+				context.state.localLoading = false // deactive loading mode
+				if (err.response) {
+					console.log(err.response)
+					if (err.response.status == 400) {
+						console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+					}
+				}
+			})
+    }
   },
   modules: {}
 });

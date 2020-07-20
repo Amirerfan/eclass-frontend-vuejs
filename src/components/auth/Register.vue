@@ -1,62 +1,66 @@
 <template>
   <div class="register">
-    <b-form class="register__form" @submit="onRegister" v-if="show">
-      <b-form-group id="input-group-1" label="Username" label-for="input-1">
+    <b-form class="register__form" @submit="onRegister">
+      <b-form-group label="first name" label-for="first-name">
         <b-form-input
-          class="register__form__username"
-          placeholder="Username"
+          id="first-name"
+          class="register__form__first-name"
+          placeholder="First Name"
           type="text"
-          size="lg"
+          v-model="form.first_name"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group label="last name" label-for="last-name">
+        <b-form-input
+          id="last-name"
+          class="register__form__last-name"
+          placeholder="Last Name"
+          type="text"
+          v-model="form.last_name"
+          required
+        ></b-form-input>
+      </b-form-group>
+
+      <b-form-group label="Email Address" label-for="email">
+        <b-form-input
+          id="email"
+          class="register__form__email"
+          placeholder="Email"
+          type="email"
           v-model="form.username"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-1" label="Email Address" label-for="input-1">
+      <b-form-group label="Password" label-for="password">
         <b-form-input
-          class="register__form__email"
-          placeholder="Email"
-          type="email"
-          size="lg"
-          v-model="form.email"
-          required
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group id="input-group-1" label="Password" label-for="input-1">
-        <b-form-input
+          id="password"
           class="register__form__password"
           placeholder="Password"
           type="password"
-          size="lg"
           v-model="form.password"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-group id="input-group-1" label="Confirm Password" label-for="input-1">
+      <b-form-group label="Confirm Password" label-for="confirm-password">
         <b-form-input
           class="register__form__password"
-          placeholder="Confirm"
+          placeholder="Confirm Password"
           type="password"
-          size="lg"
           v-model="form.confirmPassword"
           required
         ></b-form-input>
       </b-form-group>
 
-      <b-form-checkbox
-        class="register__form__remember-me"
-        value="True"
-        v-model="form.rememberMe"
-      >Remember Me!</b-form-checkbox>
-
-      <b-button class="register__form__register-button" type="submit" variant="primary">REGISTER</b-button>
+      <b-button class="register__form__register-button" type="submit" variant="primary">Register</b-button>
       <b-button
         class="register__form__login-button"
-        @click="onRegister"
+        @click="changeToLogin"
         variant="outline-primary"
-      >LOGIN</b-button>
+      >Login</b-button>
     </b-form>
   </div>
 </template>
@@ -67,21 +71,26 @@ export default {
   data() {
     return {
       form: {
-        email: "",
-        password: "",
+        first_name: "Amirerfan",
+        last_name: "Siamaki",
+        username: "a",
+        password: "asdfasdf",
+        confirmPassword: "asdfasdf",
         rememberMe: false
       },
-      show: true
     };
   },
+  props: {
+    changeToLogin: {
+      type: Function
+    }
+  },
   methods: {
-    onLogin(evt) {
-      evt.preventDefault();
-      console.log(JSON.stringify(this.form));
-    },
-    onRegister(evt) {
-      evt.preventDefault();
-      console.log(evt + "register");
+    onRegister(event) {
+      event.preventDefault();
+      if(this.form.password == this.form.confirmPassword) {
+        this.$store.dispatch('register', this.form)
+      }
     }
   }
 };
