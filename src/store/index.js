@@ -9,7 +9,6 @@ export default new Vuex.Store({
     user: {
       first_name: null,
       last_name: null,
-      email: null,
       username: null,
       token: null
     }
@@ -17,6 +16,11 @@ export default new Vuex.Store({
   mutations: {
     setToken(state, payload){
       state.user.token = payload.token
+    },
+    setUserData(state, payload){
+      state.user.first_name = payload.first_name
+      state.user.last_name = payload.last_name
+      state.user.username = payload.username
     }
   },
   actions: {
@@ -29,7 +33,7 @@ export default new Vuex.Store({
         console.log(res)
 				context.commit('setToken', res.data) // create related cafe classes				
         localStorage.setItem('token', res.data.token) // save token into localstorage
-        // context.dispatch('getUserData')
+        context.dispatch('getUserData')
 			}).catch(err => {
 				context.state.localLoading = false // deactive loading mode
 				if (err.response) {
@@ -49,7 +53,7 @@ export default new Vuex.Store({
         console.log(res)
 				context.commit('setToken', res.data) // create related cafe classes				
         localStorage.setItem('token', res.data.token) // save token into localstorage
-        // context.dispatch('getUserData')
+        context.dispatch('getUserData')
 			}).catch(err => {
 				context.state.localLoading = false // deactive loading mode
 				if (err.response) {
@@ -58,6 +62,17 @@ export default new Vuex.Store({
 						console.log({ message: 'اطلاعات ورودی معتبر نیست' })
 					}
 				}
+			})
+    },
+    getUserData(context) {
+      mixin.methods.request({
+				url: 'user-profile/',
+				method: 'GET',
+			}).then(res => {	
+        console.log(res)			
+        context.commit('setUserData', res.data)
+			}).catch(err => {
+        console.log(err)
 			})
     }
   },

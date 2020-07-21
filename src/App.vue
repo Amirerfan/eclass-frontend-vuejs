@@ -9,13 +9,17 @@ export default {
   name: "App",
   computed: {
     user() {
-      return this.$store.state.user.token;
+      return this.$store.state.user
     }
   },
   watch: {
-    user: function(newValue) {
-      if (newValue){
-        this.$router.push('/')
+    user: {
+      deep: true,
+      
+      handler(newValue){
+        if (newValue.username && newValue.first_name && newValue.last_name && newValue.token){
+          this.$router.push('/')
+        }
       }
     }
   }
