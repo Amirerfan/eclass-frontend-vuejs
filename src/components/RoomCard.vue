@@ -7,10 +7,10 @@
       />
     </div>
     <div class="room-card__info">
-      <div class="room-card__info__name">Cafepay</div>
+      <div class="room-card__info__name">{{ room.name }}</div>
       <div class="room-card__info__msg">Hello, How are you! Where are these days?</div>
       <div class="room-card__info__time">12:32</div>
-      <b-badge class="room-card__info__number" pill variant="danger">12</b-badge>
+      <!-- <b-badge class="room-card__info__number" pill variant="danger">12</b-badge> -->
     </div>
   </div>
 </template>
@@ -20,6 +20,12 @@ export default {
   name: "RoomCard",
   data() {
     return {};
+  },
+  props: {
+    room: {
+      type: Object,
+      required: true
+    }
   }
 };
 </script>

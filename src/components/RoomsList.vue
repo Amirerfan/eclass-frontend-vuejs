@@ -1,11 +1,6 @@
 <template>
   <div class="rooms-list">
-    <RoomCard />
-    <RoomCard />
-    <RoomCard />
-    <RoomCard />
-    <RoomCard />
-    <RoomCard />
+    <RoomCard v-for="room in this.rooms" :key="room.id" :room='room'/>  
   </div>
 </template>
 
@@ -15,6 +10,19 @@ export default {
   name: "RoomsList",
   components: {
     RoomCard
+  },
+  computed: {
+    rooms() {
+      let rooms = this.$store.state.rooms
+      let processedRooms = rooms.admin
+      console.log('processed rooms:' , processedRooms)
+      rooms.participated.forEach(participated => {
+        if (!processedRooms.some(room => room.id == participated.id)) {
+          processedRooms.push(participated)
+        }
+      });
+      return processedRooms
+    }
   }
 };
 </script>

@@ -21,7 +21,7 @@ const mixin = {
       const instance = axios.create({
         baseURL: "http://127.0.0.1:8000/api/",
         headers: {
-          authorization: "Token " + "a7c1caf0514413ccc94ed7499a470a49467d7863",
+          authorization: "Token " + localStorage.token,
           "Content-Type": "application/json"
         }
       })

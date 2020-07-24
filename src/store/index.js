@@ -11,7 +11,12 @@ export default new Vuex.Store({
       first_name: null,
       last_name: null,
       username: null,
-      token: null
+      token: null,
+      isLogedin: false
+    },
+    rooms: {
+      admin: [],
+      participated: []
     }
   },
   mutations: {
@@ -21,6 +26,13 @@ export default new Vuex.Store({
       state.user.first_name = payload.user.first_name
       state.user.last_name = payload.user.last_name
       state.user.username = payload.user.username
+      state.user.isLogedin = true
+    },
+    setUserRooms(state, payload){
+      if(payload != undefined){
+        state.rooms = payload
+      } 
+
     }
   },
   actions: {
@@ -44,14 +56,14 @@ export default new Vuex.Store({
 			})
     },
     register(context, payload) {
-      mixin.methods.baseRequest({	// login user api call
+      mixin.methods.baseRequest({	
 				url: 'user/create/',
 				method: 'POST',
 				data: { 'user': payload }
 			}).then(res => {
         console.log(res)
-        localStorage.setItem('token', res.data.token) // save token into localstorage
-				context.commit('setUserData', res.data) // create related cafe classes				
+        localStorage.setItem('token', res.data.token) 
+				context.commit('setUserData', res.data) 			
 			}).catch(err => {
 				context.state.localLoading = false // deactive loading mode
 				if (err.response) {
@@ -62,6 +74,23 @@ export default new Vuex.Store({
 				}
 			})
     },
+    getUserRooms(context) {
+      mixin.methods.request({	
+				url: 'rooms/'+ context.state.user.id +'/',
+				method: 'GET',
+			}).then(res => {
+        console.log(res)
+        context.commit('setUserRooms', res.data) 			
+			}).catch(err => {
+				context.state.localLoading = false // deactive loading mode
+				if (err.response) {
+					console.log(err.response)
+					if (err.response.status == 400) {
+						console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+					}
+				}
+			})
+    }
   },
   modules: {}
 });

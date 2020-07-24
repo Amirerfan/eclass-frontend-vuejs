@@ -17,8 +17,10 @@ export default {
       deep: true,
       
       handler(newValue){
-        if (newValue.username && newValue.first_name && newValue.last_name && newValue.token){
+        console.log(newValue)
+        if (newValue.isLogedin){
           this.$router.push('/')
+          this.$store.dispatch('getUserRooms')
         }
       }
     }
