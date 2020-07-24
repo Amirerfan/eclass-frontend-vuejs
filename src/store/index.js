@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: {
+      id: null,
       first_name: null,
       last_name: null,
       username: null,
@@ -14,26 +15,24 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    setToken(state, payload){
-      state.user.token = payload.token
-    },
     setUserData(state, payload){
-      state.user.first_name = payload.first_name
-      state.user.last_name = payload.last_name
-      state.user.username = payload.username
+      state.user.id = payload.id
+      state.user.token = payload.token
+      state.user.first_name = payload.user.first_name
+      state.user.last_name = payload.user.last_name
+      state.user.username = payload.user.username
     }
   },
   actions: {
     login(context, payload) {
 			mixin.methods.baseRequest({	// login user api call
-				url: 'login/',
+				url: 'user/login/',
 				method: 'POST',
 				data: payload
 			}).then(res => {
         console.log(res)
-				context.commit('setToken', res.data) // create related cafe classes				
         localStorage.setItem('token', res.data.token) // save token into localstorage
-        context.dispatch('getUserData')
+				context.commit('setUserData', res.data) // create related cafe classes				
 			}).catch(err => {
 				context.state.localLoading = false // deactive loading mode
 				if (err.response) {
@@ -46,14 +45,13 @@ export default new Vuex.Store({
     },
     register(context, payload) {
       mixin.methods.baseRequest({	// login user api call
-				url: 'register/',
+				url: 'user/create/',
 				method: 'POST',
-				data: payload
+				data: { 'user': payload }
 			}).then(res => {
         console.log(res)
-				context.commit('setToken', res.data) // create related cafe classes				
         localStorage.setItem('token', res.data.token) // save token into localstorage
-        context.dispatch('getUserData')
+				context.commit('setUserData', res.data) // create related cafe classes				
 			}).catch(err => {
 				context.state.localLoading = false // deactive loading mode
 				if (err.response) {
@@ -64,17 +62,6 @@ export default new Vuex.Store({
 				}
 			})
     },
-    getUserData(context) {
-      mixin.methods.request({
-				url: 'user-profile/',
-				method: 'GET',
-			}).then(res => {	
-        console.log(res)			
-        context.commit('setUserData', res.data)
-			}).catch(err => {
-        console.log(err)
-			})
-    }
   },
   modules: {}
 });

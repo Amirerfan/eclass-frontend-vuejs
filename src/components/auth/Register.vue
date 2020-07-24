@@ -89,6 +89,9 @@ export default {
     onRegister(event) {
       event.preventDefault();
       if(this.form.password == this.form.confirmPassword) {
+      delete this.form['confirmPassword']
+      delete this.form['rememberMe']
+      console.log(this.form)
         this.$store.dispatch('register', this.form)
       }
     }
