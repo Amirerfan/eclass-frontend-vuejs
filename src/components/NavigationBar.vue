@@ -29,11 +29,11 @@
       <section>
         <div class="create-room-modal__room-title">
           <label for="example-datepicker">Room Title</label>
-          <b-form-input id="input-horizontal"></b-form-input>
+          <b-form-input id="input-horizontal" v-model="roomTitle"></b-form-input>
         </div>
       </section>
       <div class="create-room-modal__submit-room">
-        <b-button class="create-room-modal__submit-room__button" variant="success">Submit Room</b-button>
+        <b-button class="create-room-modal__submit-room__button" variant="success" @click="submitRoom()">Submit Room</b-button>
       </div>
     </b-modal>
     
@@ -63,7 +63,17 @@
 export default {
   name: "NavigationBar",
   data() {
-    return {};
+    return {
+      roomTitle: ''
+    };
+  },
+  methods: {
+    submitRoom() {
+      if (this.roomTitle) {
+        this.$store.dispatch('createRoom', this.roomTitle)
+        this.$bvModal.close('create-room-modal')
+      }
+    }
   }
 };
 </script>

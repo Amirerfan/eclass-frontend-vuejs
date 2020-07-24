@@ -32,7 +32,9 @@ export default new Vuex.Store({
       if(payload != undefined){
         state.rooms = payload
       } 
-
+    },
+    indexCreatedRoom(state, payload){
+      state.rooms.admin.push(payload)
     }
   },
   actions: {
@@ -81,6 +83,26 @@ export default new Vuex.Store({
 			}).then(res => {
         console.log(res)
         context.commit('setUserRooms', res.data) 			
+			}).catch(err => {
+				context.state.localLoading = false // deactive loading mode
+				if (err.response) {
+					console.log(err.response)
+					if (err.response.status == 400) {
+						console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+					}
+				}
+			})
+    },
+    createRoom(context, payload) {
+      mixin.methods.request({	
+				url: 'room/create/',
+        method: 'POST',
+        data: { name: payload,
+                admin: [context.state.user.id]
+              }
+			}).then(res => {
+        console.log(res)
+        context.commit('indexCreatedRoom', res.data) 			
 			}).catch(err => {
 				context.state.localLoading = false // deactive loading mode
 				if (err.response) {
