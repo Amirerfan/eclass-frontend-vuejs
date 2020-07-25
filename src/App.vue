@@ -10,6 +10,14 @@ export default {
   computed: {
     user() {
       return this.$store.state.user
+    },
+    isLogedin() {
+      return this.$store.state.user.isLogedin
+    }
+  },
+  mounted() {
+    if(!this.isLogedin){
+      this.$router.push('/login')
     }
   },
   watch: {
@@ -23,6 +31,11 @@ export default {
           this.$store.dispatch('getUserRooms')
         }
       }
+    },
+    isLogedin(newValue) {
+      if(!newValue) {
+        this.$router.push('/login')
+      } 
     }
   }
 };
