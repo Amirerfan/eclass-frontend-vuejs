@@ -49,11 +49,11 @@
       <section>
         <div class="join-room-modal__room-link">
           <label for="example-datepicker">Room Link</label>
-          <b-form-input id="input-horizontal"></b-form-input>
+          <b-form-input id="input-horizontal" v-model="roomLink"></b-form-input>
         </div>
       </section>
       <div class="join-room-modal__join-room">
-        <b-button class="join-room-modal__join-room__button" variant="success">Join Room</b-button>
+        <b-button class="join-room-modal__join-room__button" variant="success" @click="joinRoom()">Join Room</b-button>
       </div>
     </b-modal>
   </b-navbar>
@@ -64,14 +64,21 @@ export default {
   name: "NavigationBar",
   data() {
     return {
-      roomTitle: ''
+      roomTitle: '',
+      roomLink: ''
     };
   },
   methods: {
     submitRoom() {
       if (this.roomTitle) {
         this.$store.dispatch('createRoom', this.roomTitle)
-        this.$bvModal.close('create-room-modal')
+        this.$bvModal.hide('create-room-modal')
+      }
+    },
+    joinRoom() {
+      if (this.roomLink) {
+        this.$store.dispatch('joinRoom', this.roomLink)
+        this.$bvModal.hide('join-room-modal')
       }
     }
   }

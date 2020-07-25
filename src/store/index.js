@@ -35,7 +35,10 @@ export default new Vuex.Store({
     },
     indexCreatedRoom(state, payload){
       state.rooms.admin.push(payload)
-    }
+    },
+    indexJoinedRoom(state, payload){
+      state.rooms.participated.push(payload)
+    },
   },
   actions: {
     login(context, payload) {
@@ -103,6 +106,23 @@ export default new Vuex.Store({
 			}).then(res => {
         console.log(res)
         context.commit('indexCreatedRoom', res.data) 			
+			}).catch(err => {
+				context.state.localLoading = false // deactive loading mode
+				if (err.response) {
+					console.log(err.response)
+					if (err.response.status == 400) {
+						console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+					}
+				}
+			})
+    },
+    joinRoom(context, payload) {
+      mixin.methods.request({	
+				url: 'room/' + payload + '/user/' + context.state.user.id + '/join/',
+        method: 'POST',
+      }).then(res => {
+        console.log(res)
+        context.commit('indexJoinedRoom', res.data) 			
 			}).catch(err => {
 				context.state.localLoading = false // deactive loading mode
 				if (err.response) {
