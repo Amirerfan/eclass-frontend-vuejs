@@ -5,10 +5,10 @@
     </div>
     <div class="home__body">
       <div class="home__body__rooms-list-container">
-        <RoomsList />
+        <RoomsList :selectedRoom="selectedRoom" :handleRoomClick='handleRoomClick'/>
       </div>
       <div class="home__body__room-page-container">
-        <RoomPage />
+        <RoomPage :selectedRoom="selectedRoom" />
       </div>
     </div>
   </div>
@@ -26,10 +26,28 @@ export default {
     RoomsList,
     RoomPage
   },
+  data() {
+    return {
+      selectedRoom: null
+    }
+  },
+  methods: {
+    handleRoomClick(room) {
+      this.selectedRoom = room
+    }
+  },
   computed: {
     fullScreen() {
       return this.$route.path == "/login" || this.$route.path == "/register";
     }
+  },
+  created() {
+    let interval = setInterval(() => {
+      if (this.$store.getters.rooms.length) {
+        this.selectedRoom = this.$store.getters.rooms[0]
+        clearInterval(interval)
+      }
+    }, 500);
   }
 };
 </script>

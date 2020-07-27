@@ -1,13 +1,13 @@
 <template>
   <div class="room-page">
     <div class="room-page__header-container">
-      <RoomPageHeader />
+      <RoomPageHeader :selectedRoom="selectedRoom"/>
     </div>
     <div class="room-page__chat-container">
-      <RoomPageChat />
+      <RoomPageChat :selectedRoom="selectedRoom"/>
     </div>
     <div class="room-page__compose-container">
-      <RoomPageCompose />
+      <RoomPageCompose :selectedRoom="selectedRoom"/>
     </div>
   </div>
 </template>
@@ -23,6 +23,12 @@ export default {
     RoomPageHeader,
     RoomPageChat,
     RoomPageCompose
+  },
+  props: {
+    selectedRoom: {
+      type: Object,
+      required: true
+    }
   }
 };
 </script>

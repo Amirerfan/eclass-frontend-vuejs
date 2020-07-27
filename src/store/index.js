@@ -153,5 +153,17 @@ export default new Vuex.Store({
 			})
     }
   },
+  getters: {
+    rooms: state => {
+      let rooms = state.rooms
+      let processedRooms = rooms.admin
+      rooms.participated.forEach(participated => {
+        if (!processedRooms.some(room => room.id == participated.id)) {
+          processedRooms.push(participated)
+        }
+      });
+      return processedRooms
+    }
+  },
   modules: {}
 });

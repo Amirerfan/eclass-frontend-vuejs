@@ -1,6 +1,10 @@
 <template>
   <div class="rooms-list">
-    <RoomCard v-for="room in this.rooms" :key="room.id" :room='room'/>  
+    <RoomCard v-for="room in $store.getters.rooms" 
+              :key="room.id" 
+              :room='room'
+              :handleRoomClick='handleRoomClick' 
+              :class="{'room-card--selected': room==selectedRoom}"/>  
   </div>
 </template>
 
@@ -11,17 +15,14 @@ export default {
   components: {
     RoomCard
   },
-  computed: {
-    rooms() {
-      let rooms = this.$store.state.rooms
-      let processedRooms = rooms.admin
-      console.log('processed rooms:' , processedRooms)
-      rooms.participated.forEach(participated => {
-        if (!processedRooms.some(room => room.id == participated.id)) {
-          processedRooms.push(participated)
-        }
-      });
-      return processedRooms
+  props: {
+    selectedRoom: {
+      type: Object,
+      required: true
+    },
+    handleRoomClick: {
+      type: Function,
+      required: true
     }
   }
 };

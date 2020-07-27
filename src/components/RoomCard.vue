@@ -1,5 +1,5 @@
 <template>
-  <div class="room-card">
+  <div @click="handleRoomClick(room)" class="room-card">
     <div class="room-card__img">
       <img
         src="https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png"
@@ -24,6 +24,10 @@ export default {
   props: {
     room: {
       type: Object,
+      required: true
+    },
+    handleRoomClick: {
+      type: Function,
       required: true
     }
   }

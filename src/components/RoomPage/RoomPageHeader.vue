@@ -1,6 +1,6 @@
 <template>
   <div @click="$bvModal.show('room-detail-modal')" class="room-page-header">
-    <div class="room-page-header__room-name">Cafepay</div>
+    <div class="room-page-header__room-name">{{ selectedRoom.name }}</div>
 
     <div class="room-page-header__video-call">
       <b-icon icon="camera-video-fill"></b-icon>
@@ -134,6 +134,12 @@ export default {
       },
     }
   },
+  props: {
+    selectedRoom: {
+      type: Object,
+      required: true
+    }
+  },
   computed: {
     start_datetime() {
       return this.start_date + 'T' + this.start_time
@@ -147,7 +153,7 @@ export default {
       let payload = this.exam
       payload.start_time = this.start_datetime
       payload.end_time = this.end_datetime
-      payload.room = 1
+      payload.room = this.selectedRoom.id
       this.$store.dispatch('createExam', payload)
       this.$bvModal.hide('create-exam-modal')
     },
