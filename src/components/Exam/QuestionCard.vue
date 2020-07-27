@@ -1,9 +1,9 @@
 <template>
   <div class="question-card">
-    <div class="question-card__question-number">Question 1</div>
+    <div class="question-card__question-number">Question {{question.number}}</div>
     <div class="question-card__text">
       <b-form-textarea
-        v-model="text"
+        v-model="question.text"
         debounce="500"
         rows="1"
         max-rows="5"
@@ -16,6 +16,12 @@
 
 <script>
 export default {
-  name: "QuestionCard"
+  name: "QuestionCard",
+  props: {
+    question: {
+      type: Object,
+      required: true
+    }
+  }
 };
 </script>

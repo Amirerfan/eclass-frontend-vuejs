@@ -132,6 +132,25 @@ export default new Vuex.Store({
 					}
 				}
 			})
+    },
+    createExam(context, payload) {
+      console.log(payload)
+      mixin.methods.request({	
+				url: 'exam/create/',
+        method: 'POST',
+        data: payload
+      }).then(res => {
+        console.log(res)
+        // context.commit('indexJoinedRoom', res.data) 			
+			}).catch(err => {
+				context.state.localLoading = false // deactive loading mode
+				if (err.response) {
+					console.log(err.response)
+					if (err.response.status == 400) {
+						console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+					}
+				}
+			})
     }
   },
   modules: {}
