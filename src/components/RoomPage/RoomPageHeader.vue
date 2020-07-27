@@ -13,10 +13,10 @@
       hide-footer
       no-stacking
     >
-      <p class="room-detail-modal__room-name">Cafepay</p>
+      <p class="room-detail-modal__room-name">{{ selectedRoom.name }}</p>
       <div class="room-detail-modal__room-link">
         <p class="room-detail-modal__room-link__title">Room Link</p>
-        <p class="room-detail-modal__room-link__link">room link</p>
+        <p class="room-detail-modal__room-link__link">{{ selectedRoom.link }}</p>
       </div>
 
       <section>
@@ -25,9 +25,7 @@
           <div class="section-header__button" @click="$bvModal.show('create-exam-modal')">+</div>
         </div>
         <div class="section-body">
-          <ExamCard />
-          <ExamCard />
-          <ExamCard />
+          <ExamCard v-for="exam in selectedRoom.exams" :key="exam.id" :exam="exam"/>
         </div>
       </section>
 

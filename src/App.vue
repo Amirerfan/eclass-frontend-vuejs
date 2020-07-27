@@ -13,6 +13,9 @@ export default {
     },
     isLogedin() {
       return this.$store.state.user.isLogedin
+    },
+    roomsLength() {
+      return this.$store.getters.rooms.length
     }
   },
   mounted() {
@@ -25,7 +28,6 @@ export default {
       deep: true,
       
       handler(newValue){
-        console.log(newValue)
         if (newValue.isLogedin){
           this.$router.push('/')
           this.$store.dispatch('getUserRooms')
@@ -36,6 +38,11 @@ export default {
       if(!newValue) {
         this.$router.push('/login')
       } 
+    },
+    roomsLength(newValue) {
+      if(newValue) {
+        this.$store.dispatch('getRoomsExams')
+      }
     }
   }
 };

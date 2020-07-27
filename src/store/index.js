@@ -39,6 +39,12 @@ export default new Vuex.Store({
     indexJoinedRoom(state, payload){
       state.rooms.participated.push(payload)
     },
+    setRoomExams(state, room_id, payload) {
+      let room = state.rooms.admin.find(room => room.id == room_id)
+      room.exams.push(payload)
+      room = state.rooms.participated.find(room => room.id == room_id)
+      room.exams.push(payload)
+    }
   },
   actions: {
     login(context, payload) {
@@ -134,14 +140,13 @@ export default new Vuex.Store({
 			})
     },
     createExam(context, payload) {
-      console.log(payload)
       mixin.methods.request({	
 				url: 'exam/create/',
         method: 'POST',
         data: payload
       }).then(res => {
         console.log(res)
-        // context.commit('indexJoinedRoom', res.data) 			
+        context.dispatch('getRoomExam', res.data.room) 			
 			}).catch(err => {
 				context.state.localLoading = false // deactive loading mode
 				if (err.response) {
@@ -151,6 +156,60 @@ export default new Vuex.Store({
 					}
 				}
 			})
+    },
+    getRoomExam(context, room_id) {
+      mixin.methods.request({	
+        url: 'exams/'+ room_id +'/',
+        method: 'GET',
+      }).then(res => {
+        console.log(res)
+        context.commit('setRoomExams', room_id, res.data)
+      }).catch(err => {
+        context.state.localLoading = false // deactive loading mode
+        if (err.response) {
+          console.log(err.response)
+          if (err.response.status == 400) {
+            console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+          }
+        }
+      })
+    },
+    getRoomsExams(context) {
+      context.state.rooms.admin.forEach(room => {
+        mixin.methods.request({	
+          url: 'exams/'+ room.id +'/',
+          method: 'GET',
+        }).then(res => {
+          console.log(res)
+          room['exams'] = res.data
+        }).catch(err => {
+          context.state.localLoading = false // deactive loading mode
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status == 400) {
+              console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+            }
+          }
+        })
+      });
+      context.state.rooms.participated.forEach(room => {
+        mixin.methods.request({	
+          url: 'exams/'+ room.id +'/',
+          method: 'GET',
+        }).then(res => {
+          console.log(res)
+          room['exams'] = res.data
+        }).catch(err => {
+          context.state.localLoading = false // deactive loading mode
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status == 400) {
+              console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+            }
+          }
+        })
+      });
+      
     }
   },
   getters: {
