@@ -209,7 +209,65 @@ export default new Vuex.Store({
           }
         })
       });
-      
+    },
+    getRoomUsers(context, room) {
+      room.adminProfiles = []
+      room.participateProfiles = []
+
+      room.participate.forEach(user => {
+        mixin.methods.request({	
+          url: 'user/'+ user +'/',
+          method: 'GET',
+        }).then(res => {
+          console.log(res)
+          room.participateProfiles.push(res.data)
+        }).catch(err => {
+          context.state.localLoading = false // deactive loading mode
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status == 400) {
+              console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+            }
+          }
+        })
+      });
+      room.admin.forEach(user => {
+        mixin.methods.request({	
+          url: 'user/'+ user +'/',
+          method: 'GET',
+        }).then(res => {
+          console.log(res)
+          room.adminProfiles.push(res.data)
+        }).catch(err => {
+          context.state.localLoading = false // deactive loading mode
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status == 400) {
+              console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+            }
+          }
+        })
+      });
+    },
+    addAdmins(context, {room, admins}) {
+      console.log(room);
+      console.log(admins);
+      admins.forEach(user => {
+        mixin.methods.request({	
+          url: 'room/' + room.id + '/user/'+ user +'/admin/',
+          method: 'POST',
+        }).then(res => {
+          console.log(res)
+        }).catch(err => {
+          context.state.localLoading = false // deactive loading mode
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status == 400) {
+              console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+            }
+          }
+        })
+      });
     }
   },
   getters: {

@@ -7,6 +7,7 @@
     </div>
 
     <b-modal
+      v-if="selectedRoom"
       modal-class="room-detail-modal"
       id="room-detail-modal"
       hide-header
@@ -32,12 +33,13 @@
       <section>
         <div class="section-header">
           <p class="section-header__title">ADMINS</p>
-          <div class="section-header__button" @click="$bvModal.show('create-exam-modal')">+</div>
+          <div class="section-header__button" @click="addAdmins">+</div>
         </div>
         <div class="section-body">
-          <PersonCard />
-          <PersonCard />
-          <PersonCard />
+          <PersonCard v-for="admin in selectedRoom.adminProfiles" 
+                      :key="admin.id" 
+                      :person="admin" 
+                      isAdmin/>
         </div>
       </section>
 
@@ -46,9 +48,10 @@
           <p class="section-header__title">SUBSCRIBERS</p>
         </div>
         <div class="section-body">
-          <PersonCard />
-          <PersonCard />
-          <PersonCard />
+          <PersonCard v-for="participate in selectedRoom.participateProfiles" 
+                      :key="participate.id"  
+                      :person="participate"
+                      :selectAsAdmin='handelSelectAsAdmin'/>
         </div>
       </section>
     </b-modal>
@@ -118,6 +121,8 @@ export default {
       end_date: '',
       end_time: '',
 
+      selectAsAdmin: [],
+
       exam: {
         title: '',
         start_time: '',
@@ -162,6 +167,18 @@ export default {
         text: '',
         credit: 1
       })
+    },
+    handelSelectAsAdmin(userId) {
+      if(this.selectAsAdmin.includes(userId)){
+        this.selectAsAdmin = this.selectAsAdmin.filter(id => id != userId)
+      } else {
+        this.selectAsAdmin.push(userId)
+      }
+    },
+    addAdmins() {
+      if(this.selectAsAdmin.length){
+        this.$store.dispatch('addAdmins', {room: this.selectedRoom, admins: this.selectAsAdmin})
+      }
     }
   }
 };

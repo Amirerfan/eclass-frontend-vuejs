@@ -3,7 +3,7 @@
     <div class="home__nav-bar">
       <NavigationBar v-if="!fullScreen" />
     </div>
-    <div class="home__body">
+    <div class="home__body" v-if="selectedRoom">
       <div class="home__body__rooms-list-container">
         <RoomsList :selectedRoom="selectedRoom" :handleRoomClick='handleRoomClick'/>
       </div>
@@ -48,6 +48,14 @@ export default {
         clearInterval(interval)
       }
     }, 500);
+  },
+  watch: {
+    selectedRoom(newValue) {
+      if(!newValue.adminProfiles){
+        console.log(newValue)
+        this.$store.dispatch('getRoomUsers', this.selectedRoom)
+      }
+    }
   }
 };
 </script>

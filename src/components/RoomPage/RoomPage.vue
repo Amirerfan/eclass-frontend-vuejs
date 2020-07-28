@@ -1,5 +1,5 @@
 <template>
-  <div class="room-page">
+  <div class="room-page" v-if="selectedRoom">
     <div class="room-page__header-container">
       <RoomPageHeader :selectedRoom="selectedRoom"/>
     </div>
