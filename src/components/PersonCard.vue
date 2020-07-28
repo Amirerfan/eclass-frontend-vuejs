@@ -1,6 +1,6 @@
 <template>
   <div class="person-card">
-    <div class="person-card__person-name">{{ person.user.first_name + ' ' + person.user.last_name }}</div>
+    <div class="person-card__person-name">{{ person.user.username }}</div>
     <b-form-checkbox @change="handelSelectAsAdmin" :value="person.id" v-if="!isAdmin"></b-form-checkbox>
   </div>
 </template>
