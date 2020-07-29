@@ -11,6 +11,11 @@
 
   border-bottom: 1px solid rgba(0, 126, 10, 0.301);
   background-color: #229c3c23;
+
+  &:hover {
+    cursor: pointer;
+  }
+
   &__left {
     flex: 1;
     display: flex;

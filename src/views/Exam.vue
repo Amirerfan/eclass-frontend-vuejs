@@ -1,22 +1,12 @@
 <template>
   <div class="exam">
     <div class="exam__questions">
-      <div class="exam__questions__exam-title">Midterm Exam Linear Algebra</div>   
-      <div class="exam__questions__question">
+      <div class="exam__questions__exam-title">{{ exam.title }}</div>   
+      <div class="exam__questions__question" 
+        v-for="question in questions"
+        :key="question.id">
         <b-form-group
-          label="this is the question?"
-          label-for="textarea-formatter"
-        >
-          <b-form-textarea
-            id="textarea-formatter"
-            v-model="text1"
-            placeholder="Enter your answer"
-          ></b-form-textarea>
-        </b-form-group>  
-      </div>   
-      <div class="exam__questions__question">
-        <b-form-group
-          label="this is the question?"
+          :label="question.text"
           label-for="textarea-formatter"
         >
           <b-form-textarea
@@ -29,16 +19,16 @@
     </div>
     <div class="exam__status">
       <div class="exam__status__exam-information">
-        <div class="exam__status__exam-information__title">Title: Midterm Exam Linear Algebra</div>
-        <div class="exam__status__exam-information__start_time">Start Time: Tue Jul 28 2020 18:09:10</div>
-        <div class="exam__status__exam-information__end_time">End Time: Tue Jul 28 2020 19:09:10</div>
-        <div class="exam__status__exam-information__duration">Duration: 1:00:00</div>
-        <div class="exam__status__exam-information__user-name">Name: Amirerfan Siamaki</div>
-        <div class="exam__status__exam-information__email">Email: amirerfan.siamaki@gmail.com</div>
+        <div class="exam__status__exam-information__title"><strong>Title:</strong> {{exam.title}}</div>
+        <div class="exam__status__exam-information__start_time">Start Time: {{ new Date(exam.start_time) }}</div>
+        <div class="exam__status__exam-information__end_time">End Time: {{ new Date(exam.end_time) }} </div>
+        <div class="exam__status__exam-information__duration">Duration: {{ duration }} </div>
+        <div class="exam__status__exam-information__user-name">Name: {{ $store.state.user.first_name +' '+ $store.state.user.last_name }}</div>
+        <div class="exam__status__exam-information__email">Email: {{ $store.state.user.username }}</div>
       </div>
       <hr>
       <div class="exam__status__time">
-        00:53:06
+        {{remaining_time}}
       </div>
       <div class="exam__status__actions">
         <b-button variant="success">Save Answers</b-button>
@@ -53,13 +43,48 @@ export default {
   name: "exam",
   data() {
     return {
-
+      questions: [],
+      remaining_time: ''
     }
   },
   props: {
     exam: {
       type: Object,
       required: true
+    }
+  },
+  created() {
+    this.request({	
+          url: 'exam/'+ this.exam.id +'/questions/',
+          method: 'GET',
+        }).then(res => {
+          console.log(res)
+          this.questions = res.data.questions
+        }).catch(err => {
+          if (err.response) {
+            console.log(err.response)
+            if (err.response.status == 400) {
+              console.log({ message: 'اطلاعات ورودی معتبر نیست' })
+            }
+          }
+        })
+  
+    setInterval(() => {
+      this.remaining();
+    }, 1000);
+  },
+  computed: {
+    duration() {
+      let duration = new Date(new Date(this.exam.end_time) - new Date(this.exam.start_time))
+      let duration_string = duration.getUTCDate() + " " + duration.getUTCHours() + ":" + duration.getUTCMinutes() + ":" + duration.getUTCSeconds();
+      return duration_string
+    },
+  },
+  methods :{
+    remaining() {
+      let remaining = new Date(new Date(this.exam.end_time) - new Date())
+      let remaining_string = remaining.getUTCDate() + " " + remaining.getUTCHours() + ":" + remaining.getUTCMinutes() + ":" + remaining.getUTCSeconds();
+      this.remaining_time = remaining_string
     }
   }
 }
