@@ -1,15 +1,17 @@
 <template>
   <div class="room-page-chat">
-    <SingleMessage />
-    <SingleMessage />
-    <SingleMessage />
-    <SingleMessage />
-    <SingleMessage />
-    <SingleMessage />
-    <SingleMessage />
-    <SingleMessage />
-    <SingleMessage />
-    <SingleMessage />
+    <SingleMessage sender="YOU" />
+    <SingleMessage sender="OTHER" />
+    <SingleMessage sender="YOU" />
+    <SingleMessage sender="OTHER" />
+    <SingleMessage sender="YOU" />
+    <SingleMessage sender="OTHER" />
+    <SingleMessage sender="YOU" />
+    <SingleMessage sender="OTHER" />
+    <SingleMessage sender="YOU" />
+    <SingleMessage sender="OTHER" />
+    <SingleMessage sender="YOU" />
+    <SingleMessage sender="OTHER" />
   </div>
 </template>
 

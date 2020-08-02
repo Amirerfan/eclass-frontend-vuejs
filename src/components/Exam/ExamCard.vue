@@ -4,8 +4,9 @@
       <div class="exam-card__exam-title">{{ exam.title }}</div>
       <div class="exam-card__exam-time">{{ Date(exam.start_time).toLocaleString() }}</div>
     </div>
-    <b-icon class="exam-card__delete" icon="trash"></b-icon>
-    <b-icon class="exam-card__edit" icon="file-diff"></b-icon>
+    <b-icon v-if="userIsAdmin" class="exam-card__delete" icon="trash"></b-icon>
+    <b-icon v-if="userIsAdmin" class="exam-card__edit" icon="file-diff"></b-icon>
+    <b-icon v-if="!userIsAdmin && (Date.now() > startTime && Date.now() < endTime)" class="exam-card__edit animation" icon="bullseye"></b-icon>
   </div>
 </template>
 
@@ -16,6 +17,9 @@ export default {
     exam: {
       type: Object,
       required: true
+    },
+    userIsAdmin: {
+      type: Boolean
     }
   },
   methods: {

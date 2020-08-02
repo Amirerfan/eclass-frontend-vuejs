@@ -3,7 +3,7 @@
     <div class="room-page-header__room-name">{{ selectedRoom.name }}</div>
 
     <div class="room-page-header__video-call">
-      <b-icon icon="camera-video-fill"></b-icon>
+      <b-icon icon="camera-video-fill" @click="$router.push('/video-call')"></b-icon>
     </div>
 
     <b-modal
@@ -23,23 +23,24 @@
       <section>
         <div class="section-header">
           <p class="section-header__title">EXAMS</p>
-          <div class="section-header__button" @click="$bvModal.show('create-exam-modal')">+</div>
+          <div class="section-header__button" v-if="userIsAdmin" @click="$bvModal.show('create-exam-modal')">+</div>
         </div>
         <div class="section-body">
-          <ExamCard v-for="exam in selectedRoom.exams" :key="exam.id" :exam="exam"/>
+          <ExamCard v-for="exam in selectedRoom.exams" :key="exam.id" :exam="exam" :userIsAdmin="userIsAdmin"/>
         </div>
       </section>
 
       <section>
         <div class="section-header">
           <p class="section-header__title">ADMINS</p>
-          <div class="section-header__button" @click="addAdmins">+</div>
+          <div class="section-header__button" v-if="userIsAdmin" @click="addAdmins">+</div>
         </div>
         <div class="section-body">
           <PersonCard v-for="admin in selectedRoom.adminProfiles" 
                       :key="admin.id" 
                       :person="admin" 
-                      isAdmin/>
+                      isAdmin
+                      :userIsAdmin='userIsAdmin'/>
         </div>
       </section>
 
@@ -149,6 +150,13 @@ export default {
     },
     end_datetime() {
       return this.end_date + 'T' + this.end_time
+    },
+    userIsAdmin() {
+      if(this.selectedRoom.adminProfiles.some(admin => admin.id == this.$store.state.user.id)){
+        return true
+      } else {
+        return false
+      }
     }
   },
   methods: {

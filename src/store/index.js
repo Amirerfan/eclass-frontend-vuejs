@@ -250,8 +250,6 @@ export default new Vuex.Store({
       });
     },
     addAdmins(context, {room, admins}) {
-      console.log(room);
-      console.log(admins);
       admins.forEach(user => {
         mixin.methods.request({	
           url: 'room/' + room.id + '/user/'+ user +'/admin/',

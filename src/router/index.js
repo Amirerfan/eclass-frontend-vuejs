@@ -27,6 +27,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "auth" */ "../views/Exam.vue"),
     props: true,
   },
+  {
+    path: "/video-call",
+    name: "video call",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "auth" */ "../views/VideoCall.vue"),
+  },
 ];
 
 const router = new VueRouter({

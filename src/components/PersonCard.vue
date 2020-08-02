@@ -1,7 +1,7 @@
 <template>
   <div class="person-card">
     <div class="person-card__person-name">{{ person.user.username }}</div>
-    <b-form-checkbox @change="handelSelectAsAdmin" :value="person.id" v-if="!isAdmin"></b-form-checkbox>
+    <b-form-checkbox v-if="userIsAdmin && !isAdmin" @change="handelSelectAsAdmin" :value="person.id"></b-form-checkbox>
   </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
     },
     selectAsAdmin: {
       type: Function,
+    },
+    userIsAdmin: {
+      type: Boolean,
     }
   },
   methods: {

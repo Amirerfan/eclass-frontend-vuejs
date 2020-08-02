@@ -99,7 +99,6 @@ export default {
         exam: this.exam.id,
         answers: answers
       } 
-      console.log(data);
       this.request({	
           url: 'answer/create/',
           method: 'POST',

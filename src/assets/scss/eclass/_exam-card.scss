@@ -47,3 +47,19 @@
     margin: 5px;
   }
 }
+
+.animation {
+  animation: light 2s infinite;
+}
+
+@keyframes light{
+  0% {
+    color: rgb(211, 211, 211);
+  }
+  50% {
+    color: rgb(3, 85, 3);
+  }
+  100% {
+    color: rgb(211, 211, 211);
+  }
+}
